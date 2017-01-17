@@ -16,6 +16,7 @@
     <!-- register the service worker -->
     <script>
       navigator.serviceWorker.register('sw.js', { scope: './' });
+      console.log(navigator.serviceWorker.controller);
       setupChannel()
         .then(data => {
           var p = document.createElement('p');
