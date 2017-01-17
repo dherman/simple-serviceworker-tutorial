@@ -11,3 +11,5 @@ window.secretModuleFunction = function() {
     console.log("secret module function");
 };
 
+// demonstrate that local content can read the function source of remote content
+window.inspectForeignSource();
