@@ -1,17 +1,29 @@
 (function() {
 
-  // set up a communication channel with the service worker
-  var chan = new MessageChannel();
+  function setupChannel() {
+    return new Promise((resolve, reject) => {
+      var chan = new MessageChannel();
 
-  chan.port1.onmessage = function(event) {
-    var p = document.createElement('p');
-    p.innerHTML = "<b>Service Worker:</b> " + event.data;
-    document.body.appendChild(p);
-  };
+      chan.port1.onmessage = event => {
+        if (event.data.error) {
+          reject(event.data.error);
+        } else {
+          resolve(event.data);
+        }
+      };
 
+      console.log("sending port to service worker");
+      navigator.serviceWorker.controller.postMessage("hello", [chan.port2]);
+    });
+  }
 
-  console.log("sending port to SW");
-  navigator.serviceWorker.controller.postMessage({ port: chan.port2 }, [chan.port2]);
+  setupChannel()
+    .then(data => {
+      var p = document.createElement('p');
+      p.innerHTML = "<b>Service Worker:</b> " + data;
+      document.body.appendChild(p);
+    })
+    .catch(console.log.bind(console));
 
 })();
 
