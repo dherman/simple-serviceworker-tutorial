@@ -32,8 +32,12 @@
     <script>
       loader.import('foreign', 'https://xoscript.surge.sh/foreign-module.js')
             .then((foreign) => {
-              console.log("all modules loaded")
+              document.getElementById('inspect').disabled = false;
             });
     </script>
+
+    <button id=inspect onclick="document.getElementById('output').innerText = loader.inspect();" disabled>Inspect Registry</button>
+
+    <pre id=output></pre>
   </body>
 </html>

@@ -47,18 +47,18 @@ class Loader {
 
     return entry.module;
   }
+
+  inspect() {
+    var output = Object.create(null);
+    Object.keys(this.registry)
+          .forEach((name) => {
+            output[name] = this.registry[name].body.toString()
+          });
+    return JSON.stringify(output);
+  }
 }
 
 loader = new Loader();
-
-/*
-// import a module by inserting a script element
-function importModule(src) {
-  var script = document.createElement('script');
-  script.src = src;
-  document.getElementsByTagName('head')[0].appendChild(script);
-}
-*/
 
 // attempt to read the source of remote content
 function inspectForeignSource() {
