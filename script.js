@@ -1,3 +1,18 @@
+(function() {
+
+  // set up a communication channel with the service worker
+  var chan = new MessageChannel();
+
+  chan.port1.onmessage = function(event) {
+    var p = document.createElement('p');
+    p.innerHTML = "<b>Service Worker:</b> " + event.data;
+    document.body.appendChild(p);
+  };
+
+  navigator.serviceWorker.controller.postMessage('setup', [chan.port2]);
+
+})();
+
 // attempt to read the source of remote content
 function inspectForeignSource() {
   var p = document.createElement('p');

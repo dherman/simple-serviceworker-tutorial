@@ -10,9 +10,6 @@
 
     <p>If I've got this right, I believe this page demonstrates that ServiceWorkers can see the request URL of (non-CORS) cross-origin scripts, even ones transitively injected by other cross-origin scripts.</p>
 
-    <!-- install some functions loaded locally -->
-    <script src="script.js"></script>
-
     <!-- register the service worker -->
     <script>
       navigator.serviceWorker.register('sw.js', { scope: './' });
@@ -20,6 +17,9 @@
 
     <!-- some stuff from jake's tutorial, not relevant I think -->
     <script src="logging.js"></script>
+
+    <!-- install some functions loaded locally -->
+    <script src="script.js"></script>
 
     <!-- now load the remote source code -->
     <script src="https://xoscript.surge.sh/foreign-module.js"></script>
