@@ -19,5 +19,13 @@
     </script>
     <script src="logging.js"></script>
     <script src="https://xoscript.surge.sh/foreign-module.js"></script>
+    <pre id="foreignModuleSource"></pre>
+    <pre id="secretModuleSource"></pre>
+    <script>
+      document.getElementById("foreignModuleSource").innerText =
+        foreignModuleSource.toString();
+      document.getElementById("secretModuleSource").innerText =
+        secretModuleSource.toString();
+    </script>
   </body>
 </html>
