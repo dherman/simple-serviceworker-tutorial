@@ -3,7 +3,8 @@ importScripts('serviceworker-cache-polyfill.js');
 var port;
 
 self.addEventListener('message', function(event) {
-  port = event.ports[0];
+  console.log(event.data);
+  port = event.data.port;
 });
 
 self.addEventListener('install', function(event) {
