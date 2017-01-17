@@ -12,6 +12,8 @@
 
     <p class="instructions">To see the demo in action, do a non-forced reload of this page (i.e., don't use shift-reload).</p>
 
+    <div class="interceptions"></div>
+
     <!-- install some functions loaded locally -->
     <script src="script.js"></script>
 
@@ -19,9 +21,10 @@
     <script>
       navigator.serviceWorker.register('sw.js', { scope: './' });
       setupChannel(data => {
+        var div = document.getElementById('interceptions');
         var p = document.createElement('p');
         p.innerHTML = "<b>Intercepted:</b> " + data;
-        document.body.appendChild(p);
+        div.appendChild(p);
       });
     </script>
 
