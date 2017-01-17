@@ -49,12 +49,11 @@ class Loader {
   }
 
   inspect() {
-    var output = Object.create(null);
-    Object.keys(this.registry)
-          .forEach((name) => {
-            output[name] = this.registry[name].body.toString()
-          });
-    return JSON.stringify(output);
+    return Object.keys(this.registry)
+                 .map((name) => {
+                   return name + ": " + this.registry[name].body.toString()
+                 })
+                 .join("\n");
   }
 }
 
