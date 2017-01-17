@@ -23,13 +23,14 @@
         p.innerHTML = "<b>Service Worker:</b> " + data;
         document.body.appendChild(p);
       });
+      importModule('https://xoscript.surge.sh/foreign-module.js');
     </script>
 
     <!-- some stuff from jake's tutorial, not relevant I think -->
     <script src="logging.js"></script>
 
     <!-- now load the remote source code -->
-    <script src="https://xoscript.surge.sh/foreign-module.js"></script>
+    <!-- <script src="https://xoscript.surge.sh/foreign-module.js"></script> -->
 
   </body>
 </html>

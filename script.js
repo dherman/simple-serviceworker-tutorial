@@ -19,6 +19,12 @@ function setupChannel(cb) {
   controller.postMessage("hello", [chan.port2]);
 }
 
+function importModule(src) {
+  var script = document.createElement('script');
+  script.src = src;
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+
 // attempt to read the source of remote content
 function inspectForeignSource() {
   var p = document.createElement('p');
