@@ -10,7 +10,7 @@
 
     <p>If I've got this right, I believe this page demonstrates that ServiceWorkers can see the request URL of (non-CORS) cross-origin scripts, even ones transitively injected by other cross-origin scripts.</p>
 
-    <p><b>To see the demo in action, do a non-forced reload of this page (i.e., don't use shift-reload).</b></p>
+    <p class="instructions">To see the demo in action, do a non-forced reload of this page (i.e., don't use shift-reload).</p>
 
     <!-- install some functions loaded locally -->
     <script src="script.js"></script>
@@ -20,7 +20,7 @@
       navigator.serviceWorker.register('sw.js', { scope: './' });
       setupChannel(data => {
         var p = document.createElement('p');
-        p.innerHTML = "<b>Service Worker:</b> " + data;
+        p.innerHTML = "<b>Intercepted:</b> " + data;
         document.body.appendChild(p);
       });
     </script>
@@ -29,9 +29,11 @@
     <script src="logging.js"></script>
 
     <!-- now load the remote source code -->
-    <!-- <script src="https://xoscript.surge.sh/foreign-module.js"></script> -->
     <script>
-      importModule('https://xoscript.surge.sh/foreign-module.js');
+      loader.import('foreign', 'https://xoscript.surge.sh/foreign-module.js')
+            .then((foreign) => {
+              console.log("all modules loaded")
+            });
     </script>
   </body>
 </html>

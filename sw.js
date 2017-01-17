@@ -3,7 +3,6 @@ importScripts('serviceworker-cache-polyfill.js');
 var port;
 
 self.addEventListener('message', function(event) {
-  console.log("sw initializing port");
   port = event.ports[0];
 });
 
@@ -20,16 +19,11 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  // print the requested URL to the developer console -- to see this
-  // in chrome devtools you have to switch the "context menu" in the
-  // console (just above the REPL) from "top" to "sw.js"
   console.log("received a fetch request for: " + event.request.url);
 
+  // send the intercepted URL to the main thread
   if (port) {
-    port.postMessage("received a fetch request for: " + event.request.url);
-    port.postMessage("I have something else to say");
-  } else {
-    console.log("...but didn't have a port to report it on");
+    port.postMessage(event.request.url);
   }
 
   event.respondWith(

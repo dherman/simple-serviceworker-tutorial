@@ -10,3 +10,8 @@ body {
 img {
   max-width: 100%;
 }
+
+.instructions {
+    font-weight: bold;
+    color: #008080;
+}

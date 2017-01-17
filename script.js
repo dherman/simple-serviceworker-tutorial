@@ -2,8 +2,9 @@
 function setupChannel(cb) {
   var controller = navigator.serviceWorker.controller;
 
-  if (!controller)
+  if (!controller) {
     return;
+  }
 
   var chan = new MessageChannel();
 
@@ -15,15 +16,49 @@ function setupChannel(cb) {
     }
   };
 
-  console.log("sending port to service worker");
   controller.postMessage("hello", [chan.port2]);
 }
 
+class Loader {
+  constructor() {
+    this.registry = Object.create(null);
+  }
+
+  import(name, url) {
+    if (this.registry[name]) {
+      return this.registry[name].load;
+    }
+
+    var loaded = new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = url;
+      script.onload = () => { resolve(); };
+      document.getElementsByTagName('head')[0].appendChild(script);
+    });
+
+    var entry = {
+      body: null,
+      module: loaded.then(() => {
+        return entry.body.call(null);
+      })
+    };
+
+    this.registry[name] = entry;
+
+    return entry.module;
+  }
+}
+
+loader = new Loader();
+
+/*
+// import a module by inserting a script element
 function importModule(src) {
   var script = document.createElement('script');
   script.src = src;
   document.getElementsByTagName('head')[0].appendChild(script);
 }
+*/
 
 // attempt to read the source of remote content
 function inspectForeignSource() {
