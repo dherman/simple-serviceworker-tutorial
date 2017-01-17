@@ -9,7 +9,7 @@
     document.body.appendChild(p);
   };
 
-  navigator.serviceWorker.controller.postMessage('setup', [chan.port2]);
+  navigator.serviceWorker.controller.postMessage({ port: chan.port2 }, [chan.port2]);
 
 })();
 
