@@ -12,6 +12,9 @@ img {
 }
 
 .instructions {
-    font-weight: bold;
     color: #008080;
+}
+
+.interceptions b {
+    color:  #ff5733;
 }

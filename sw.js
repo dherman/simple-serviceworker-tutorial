@@ -11,8 +11,7 @@ self.addEventListener('install', function(event) {
     caches.open('simple-sw-v1').then(function(cache) {
       return cache.addAll([
         './',
-        'style.css',
-        'logging.js'
+        'style.css'
       ]);
     })
   );

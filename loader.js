@@ -1,32 +1,12 @@
-// set up a channel of communication with the service worker
-function setupChannel(cb) {
-  var controller = navigator.serviceWorker.controller;
-
-  if (!controller) {
-    return;
-  }
-
-  var chan = new MessageChannel();
-
-  chan.port1.onmessage = event => {
-    if (event.data.error) {
-      console.log(event.data.error);
-    } else {
-      cb(event.data);
-    }
-  };
-
-  controller.postMessage("hello", [chan.port2]);
-}
-
 class Loader {
   constructor() {
     this.registry = Object.create(null);
   }
 
+  // import a "module" by loading a script from a URL
   import(name, url) {
     if (this.registry[name]) {
-      return this.registry[name].load;
+      return this.registry[name].module;
     }
 
     var loaded = new Promise((resolve, reject) => {

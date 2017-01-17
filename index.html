@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demo of Cross-Origin Script Injection</title>
+    <title>Observing Cross-Origin Script Requests</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Demo of Cross-Origin Script Injection</h1>
+    <h1>Observing Cross-Origin Script Requests</h1>
 
     <p>If I've got this right, I believe this page demonstrates that ServiceWorkers can see the request URL of (non-CORS) cross-origin scripts, even ones transitively injected by other cross-origin scripts.</p>
 
-    <p class="instructions">To see the demo in action, do a non-forced reload of this page (i.e., don't use shift-reload).</p>
+    <p class="instructions">To see the demo in action, do a <b>non-forced</b> reload of this page (i.e., <b>don't</b> use shift-reload).</p>
 
     <div id="interceptions"></div>
 
-    <!-- install some functions loaded locally -->
-    <script src="script.js"></script>
+    <!-- a tiny "module loader" that uses script elements -->
+    <script src="loader.js"></script>
 
     <!-- register the service worker -->
-    <script>
-      navigator.serviceWorker.register('sw.js', { scope: './' });
-      setupChannel(data => {
-        var div = document.getElementById('interceptions');
-        var p = document.createElement('p');
-        p.innerHTML = "<b>Intercepted:</b> " + data;
-        div.appendChild(p);
-      });
-    </script>
+    <script src="register.js"></script>
 
-    <!-- now load the remote source code -->
+    <!-- load the remote modules -->
     <script>
       loader.import('foreign', 'https://xoscript.surge.sh/foreign-module.js')
-            .then((foreign) => {
+            .then(m => {
               document.getElementById('inspect').disabled = false;
             });
     </script>
