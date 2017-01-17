@@ -5,7 +5,7 @@ var port;
 self.addEventListener('message', function(event) {
   console.log("received a message from main thread");
   console.log(event.data);
-  port = event.data.port;
+  port = event.ports[0];
 });
 
 self.addEventListener('install', function(event) {
