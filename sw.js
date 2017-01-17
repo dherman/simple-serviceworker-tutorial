@@ -3,6 +3,7 @@ importScripts('serviceworker-cache-polyfill.js');
 var port;
 
 self.addEventListener('message', function(event) {
+  console.log("received a message from main thread");
   console.log(event.data);
   port = event.data.port;
 });
