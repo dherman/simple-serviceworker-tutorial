@@ -1,12 +1,12 @@
-var p = document.createElement('p');
-p.textContent = 'This content was added via JavaScript!';
-document.body.appendChild(p);
-
 // attempt to read the source of remote content
 function inspectForeignSource() {
+  var p = document.createElement('p');
+  p.innerText = "Let's print the source code to some remotely loaded functions:";
+  document.body.appendChild(p);
+
   [foreignModuleFunction, secretModuleFunction].forEach((f) => {
-    var elt = document.createElement('pre');
-    elt.innerText = f.toString();
-    document.body.appendChild(elt);
+    var pre = document.createElement('pre');
+    pre.innerText = f.toString();
+    document.body.appendChild(pre);
   });
 }
