@@ -10,20 +10,19 @@
 
     <p>If I've got this right, I believe this page demonstrates that ServiceWorkers can see the request URL of (non-CORS) cross-origin scripts, even ones transitively injected by other cross-origin scripts.</p>
 
+    <p><b>To see the demo in action, do a non-forced reload of this page (i.e., don't use shift-reload).</b></p>
+
     <!-- install some functions loaded locally -->
     <script src="script.js"></script>
 
     <!-- register the service worker -->
     <script>
       navigator.serviceWorker.register('sw.js', { scope: './' });
-      console.log(navigator.serviceWorker.controller);
-      setupChannel()
-        .then(data => {
-          var p = document.createElement('p');
-          p.innerHTML = "<b>Service Worker:</b> " + data;
-          document.body.appendChild(p);
-        })
-        .catch(console.log.bind(console));
+      setupChannel(data => {
+        var p = document.createElement('p');
+        p.innerHTML = "<b>Service Worker:</b> " + data;
+        document.body.appendChild(p);
+      });
     </script>
 
     <!-- some stuff from jake's tutorial, not relevant I think -->

@@ -1,25 +1,23 @@
-function setupChannel() {
-  return new Promise((resolve, reject) => {
-    var chan = new MessageChannel();
+// set up a channel of communication with the service worker
+function setupChannel(cb) {
+  var controller = navigator.serviceWorker.controller;
 
-    chan.port1.onmessage = event => {
-      if (event.data.error) {
-        reject(event.data.error);
-      } else {
-        resolve(event.data);
-      }
-    };
+  if (!controller)
+    return;
 
-    console.log("sending port to service worker");
-    navigator.serviceWorker.controller.postMessage("hello", [chan.port2]);
-  });
+  var chan = new MessageChannel();
+
+  chan.port1.onmessage = event => {
+    if (event.data.error) {
+      console.log(event.data.error);
+    } else {
+      cb(event.data);
+    }
+  };
+
+  console.log("sending port to service worker");
+  controller.postMessage("hello", [chan.port2]);
 }
-
-(function() {
-
-
-
-})();
 
 // attempt to read the source of remote content
 function inspectForeignSource() {

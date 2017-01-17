@@ -1,6 +1,10 @@
 html {
-  /* serif sucks! */
   font-family: sans-serif;
+}
+
+body {
+    width: 800px;
+    margin: 1em auto;
 }
 
 img {
