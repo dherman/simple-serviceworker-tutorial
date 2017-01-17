@@ -9,6 +9,8 @@
     document.body.appendChild(p);
   };
 
+
+  console.log("sending port to SW");
   navigator.serviceWorker.controller.postMessage({ port: chan.port2 }, [chan.port2]);
 
 })();
