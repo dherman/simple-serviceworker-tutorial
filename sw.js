@@ -25,6 +25,8 @@ self.addEventListener('install', function(event) {
 // ServiceWorker's scope, and any request made within that
 // page
 self.addEventListener('fetch', function(event) {
+  console.log("received a fetch request for: " + event.request.url);
+
   // Calling event.respondWith means we're in charge
   // of providing the response. We pass in a promise
   // that resolves with a response object
