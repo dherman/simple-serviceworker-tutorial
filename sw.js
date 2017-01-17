@@ -3,8 +3,6 @@ importScripts('serviceworker-cache-polyfill.js');
 var port;
 
 self.addEventListener('message', function(event) {
-  console.log("received a message from main thread");
-  console.log(event.data);
   port = event.ports[0];
 });
 
@@ -25,7 +23,11 @@ self.addEventListener('fetch', function(event) {
   // in chrome devtools you have to switch the "context menu" in the
   // console (just above the REPL) from "top" to "sw.js"
   console.log("received a fetch request for: " + event.request.url);
-  port.postMessage("received a fetch request for: " + event.request.url);
+
+  if (port) {
+    port.postMessage("received a fetch request for: " + event.request.url);
+    port.postMessage("I have something else to say");
+  }
 
   event.respondWith(
     caches.match(event.request).then(function(response) {
