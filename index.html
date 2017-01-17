@@ -23,7 +23,8 @@
         p.innerHTML = "<b>Service Worker:</b> " + data;
         document.body.appendChild(p);
       });
-      importModule('https://xoscript.surge.sh/foreign-module.js');
+      setTimeout(() => { importModule('https://xoscript.surge.sh/foreign-module.js') },
+                 0);
     </script>
 
     <!-- some stuff from jake's tutorial, not relevant I think -->
