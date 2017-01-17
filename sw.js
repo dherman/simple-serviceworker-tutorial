@@ -3,6 +3,7 @@ importScripts('serviceworker-cache-polyfill.js');
 var port;
 
 self.addEventListener('message', function(event) {
+  console.log("sw initializing port");
   port = event.ports[0];
 });
 
@@ -27,6 +28,8 @@ self.addEventListener('fetch', function(event) {
   if (port) {
     port.postMessage("received a fetch request for: " + event.request.url);
     port.postMessage("I have something else to say");
+  } else {
+    console.log("...but didn't have a port to report it on");
   }
 
   event.respondWith(
